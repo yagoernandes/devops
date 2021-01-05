@@ -25,9 +25,16 @@ spec:
     spec:
       serviceAccountName: traefik-ingress-controller
       terminationGracePeriodSeconds: 60
+      volumes:
+        - name: lib
+          hostPath:
+            path: /etc/nsswitch.conf
       containers:
       - image: traefik:v1.7
         name: traefik-ingress-lb
+        volumeMounts:
+          - mountPath: /etc/nsswitch.conf
+            name: lib
         ports:
         - name: http
           containerPort: 80
